@@ -13,7 +13,7 @@ document
     }
   });
 
-const api_url = process.env.API_URL;
+const api_url = "{{API_URL}}";
 
 document.getElementById("uploadButton").addEventListener("click", function () {
   const fileInput = document.getElementById("fileInput");
