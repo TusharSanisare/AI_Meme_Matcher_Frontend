@@ -13,7 +13,7 @@ document
     }
   });
 
-// const api_url = process.env.API_URL;
+const api_url = process.env.API_URL;
 
 document.getElementById("uploadButton").addEventListener("click", function () {
   const fileInput = document.getElementById("fileInput");
@@ -38,9 +38,7 @@ document.getElementById("uploadButton").addEventListener("click", function () {
   const formData = new FormData();
   formData.append("file", file);
 
-  // fetch(api_url, {
-  // fetch("http://127.0.0.1:5000/match", {
-  fetch("https://meme-matcher.onrender.com/match", {
+  fetch(api_url, {
     method: "POST",
     body: formData,
   })
