@@ -13,6 +13,8 @@ document
     }
   });
 
+// const api_url = process.env.API_URL;
+
 document.getElementById("uploadButton").addEventListener("click", function () {
   const fileInput = document.getElementById("fileInput");
   const matchedMeme = document.getElementById("matchedMeme");
@@ -24,7 +26,7 @@ document.getElementById("uploadButton").addEventListener("click", function () {
 
   const slideshowImages = 54;
 
-  let currentSlide = 0;
+  let currentSlide = 1;
   let slideshowInterval;
 
   slideshowInterval = setInterval(() => {
@@ -36,7 +38,9 @@ document.getElementById("uploadButton").addEventListener("click", function () {
   const formData = new FormData();
   formData.append("file", file);
 
-  fetch("http://127.0.0.1:5000/match", {
+  // fetch(api_url, {
+  // fetch("http://127.0.0.1:5000/match", {
+  fetch("https://meme-matcher.onrender.com/match", {
     method: "POST",
     body: formData,
   })
@@ -46,7 +50,7 @@ document.getElementById("uploadButton").addEventListener("click", function () {
 
       if (data.matched_meme) {
         confettiFun();
-        matchedMeme.src = `../meme_matcher_backend_python/memes/${data.matched_meme}`;
+        matchedMeme.src = `memes/${data.matched_meme}`;
       } else if (data.error) {
         alert(data.error);
       }
