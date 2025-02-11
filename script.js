@@ -75,7 +75,7 @@ uploadButton.addEventListener("click", function () {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert("An error occurred while processing your request.");
+      alert("An error occurred while processing your request. " + error);
       clearInterval(slideshowInterval);
     });
 });
