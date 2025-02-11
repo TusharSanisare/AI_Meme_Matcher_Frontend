@@ -1,25 +1,26 @@
-document
-  .getElementById("fileInput")
-  .addEventListener("change", function (event) {
-    const selectedImage = document.getElementById("selectedImage");
-    const file = event.target.files[0];
+const fileNameDisplay = document.getElementById("file-name");
+const memeBtn = document.querySelector("#uploadButton");
+const uplaodBtn = document.querySelector(".file-upload");
+const fileInput = document.getElementById("fileInput");
+const selectedImage = document.getElementById("selectedImage");
+const uploadButton = document.getElementById("uploadButton");
+const matchedMeme = document.getElementById("matchedMeme");
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        selectedImage.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
-// const api_url = "{{API_URL}}";
 const api_url = "https://meme-matcher.onrender.com/match";
 
-document.getElementById("uploadButton").addEventListener("click", function () {
-  const fileInput = document.getElementById("fileInput");
-  const matchedMeme = document.getElementById("matchedMeme");
+fileInput.addEventListener("change", function (event) {
+  const file = event.target.files[0];
 
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      selectedImage.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+uploadButton.addEventListener("click", function () {
   if (fileInput.files.length === 0) {
     alert("Please select an image file.");
     return;
@@ -50,6 +51,8 @@ document.getElementById("uploadButton").addEventListener("click", function () {
       if (data.matched_meme) {
         confettiFun();
         matchedMeme.src = `memes/${data.matched_meme}`;
+        uplaodBtn.style.display = "";
+        memeBtn.style.display = "none";
       } else if (data.error) {
         alert(data.error);
       }
@@ -61,18 +64,12 @@ document.getElementById("uploadButton").addEventListener("click", function () {
     });
 });
 
-document
-  .getElementById("fileInput")
-  .addEventListener("change", function (event) {
-    const fileNameDisplay = document.getElementById("file-name");
-    const file = event.target.files[0];
+fileInput.addEventListener("change", function (event) {
+  const file = event.target.files[0];
 
-    const memeBtn = document.querySelector("#uploadButton");
-    const uplaodBtn = document.querySelector(".file-upload");
-
-    uplaodBtn.style.display = "none";
-    memeBtn.style.display = "";
-  });
+  uplaodBtn.style.display = "none";
+  memeBtn.style.display = "";
+});
 
 const confettiFun = () => {
   var scalar = 2;
