@@ -6,7 +6,8 @@ const selectedImage = document.getElementById("selectedImage");
 const uploadButton = document.getElementById("uploadButton");
 const matchedMeme = document.getElementById("matchedMeme");
 
-const api_url = "{{API_URL}}";
+// const api_url = "{{API_URL}}";
+const api_url = "https://meme-matcher.onrender.com/match";
 
 // Preload all slideshow images
 const slideshowImages = 53;
