@@ -6,7 +6,22 @@ const selectedImage = document.getElementById("selectedImage");
 const uploadButton = document.getElementById("uploadButton");
 const matchedMeme = document.getElementById("matchedMeme");
 
-const api_url = "https://meme-matcher.onrender.com/match";
+const api_url = "{{API_URL}}";
+
+// Preload all slideshow images
+const slideshowImages = 53;
+const preloadedImages = [];
+
+function preloadImages() {
+  for (let i = 1; i <= slideshowImages; i++) {
+    const img = new Image();
+    img.src = `memes/${i}.png`;
+    preloadedImages.push(img);
+  }
+}
+
+// Call the preload function when the page loads
+window.onload = preloadImages;
 
 fileInput.addEventListener("change", function (event) {
   const file = event.target.files[0];
@@ -26,14 +41,14 @@ uploadButton.addEventListener("click", function () {
     return;
   }
 
-  const slideshowImages = 54;
-
   let currentSlide = 1;
   let slideshowInterval;
 
+  // Start the slideshow using preloaded images
   slideshowInterval = setInterval(() => {
-    matchedMeme.src = `memes/${currentSlide}.png`;
-    currentSlide = (currentSlide + 1) % slideshowImages;
+    matchedMeme.src = preloadedImages[currentSlide - 1].src;
+    currentSlide = currentSlide + 1;
+    if (currentSlide == slideshowImages + 1) currentSlide = 1;
   }, 100);
 
   const file = fileInput.files[0];
